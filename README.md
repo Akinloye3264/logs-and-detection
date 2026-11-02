@@ -1,4 +1,4 @@
-# Wazuh Decoder & Rule Lab: From Raw Log to Alert
+# Logs and Detection (Wazuh Decoder & Rule Lab): From Raw Log to Alert
 
 A hands-on lab on the Wazuh analysis engine. You take three different kinds of raw logs, write **custom decoders** to extract fields from them, then write **custom rules** that turn those fields into alerts.
 
