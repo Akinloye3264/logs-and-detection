@@ -1,0 +1,7 @@
+Nov 02 09:20:01 bastion01 gatekeeper[2260]: Failed password for user root from 203.0.113.45 port 44001 method=password
+Nov 02 09:20:02 bastion01 gatekeeper[2260]: Failed password for user root from 203.0.113.45 port 44002 method=password
+Nov 02 09:20:03 bastion01 gatekeeper[2260]: Failed password for user root from 203.0.113.45 port 44003 method=password
+Nov 02 09:20:04 bastion01 gatekeeper[2260]: Failed password for user root from 203.0.113.45 port 44004 method=password
+Nov 02 09:20:05 bastion01 gatekeeper[2260]: Failed password for user root from 203.0.113.45 port 44005 method=password
+Nov 02 09:20:06 bastion01 gatekeeper[2260]: Failed password for user root from 203.0.113.45 port 44006 method=password
+Nov 02 09:20:07 bastion01 gatekeeper[2260]: Failed password for user root from 203.0.113.45 port 44007 method=password

@@ -1,0 +1,4 @@
+2026-11-02T09:31:07Z edgeproxy src=198.51.100.12 method=GET uri=/products/42 status=200 bytes=5120 ua="Mozilla/5.0"
+2026-11-02T09:31:44Z edgeproxy src=203.0.113.77 method=GET uri=/index.php status=200 bytes=312 ua="sqlmap/1.7.2#stable"
+2026-11-02T09:32:10Z edgeproxy src=203.0.113.88 method=GET uri=/.env status=403 bytes=0 ua="curl/8.4.0"
+2026-11-02T09:32:51Z edgeproxy src=203.0.113.99 method=GET uri=/backup.zip status=404 bytes=162 ua="Mozilla/5.0"

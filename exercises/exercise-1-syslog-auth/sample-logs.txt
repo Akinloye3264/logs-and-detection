@@ -1,0 +1,3 @@
+Nov 02 09:14:21 bastion01 gatekeeper[2217]: Accepted password for user jane from 10.20.30.40 port 51822 method=password
+Nov 02 09:15:02 bastion01 gatekeeper[2217]: Accepted password for user jane from 198.51.100.7 port 40112 method=password
+Nov 02 09:16:45 bastion01 gatekeeper[2231]: Failed password for user admin from 203.0.113.45 port 51822 method=password

@@ -1,0 +1,4 @@
+Nov 02 10:02:11 vault01 vaultsync: {"event":"secret.read","actor":{"name":"svc-backup","type":"service_account"},"source_ip":"198.51.100.23","resource":"prod/db/password","outcome":"success"}
+Nov 02 10:05:37 vault01 vaultsync: {"event":"secret.read","actor":{"name":"mike","type":"user"},"source_ip":"198.51.100.31","resource":"prod/db/password","outcome":"success"}
+Nov 02 10:07:02 vault01 vaultsync: {"event":"secret.read","actor":{"name":"intern01","type":"user"},"source_ip":"203.0.113.60","resource":"prod/api/key","outcome":"denied"}
+Nov 02 10:09:48 vault01 vaultsync: {"event":"audit.disable","actor":{"name":"root-admin","type":"user"},"source_ip":"203.0.113.61","resource":"audit/trail","outcome":"success"}

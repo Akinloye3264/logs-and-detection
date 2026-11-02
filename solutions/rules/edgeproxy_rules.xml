@@ -1,0 +1,33 @@
+<!-- Exercise 2 rules: IDs 100300-100304 -->
+<group name="local,edgeproxy,web,">
+
+  <rule id="100300" level="0">
+    <decoded_as>edgeproxy</decoded_as>
+    <description>edgeproxy: access log event received.</description>
+  </rule>
+
+  <rule id="100301" level="7">
+    <if_sid>100300</if_sid>
+    <field name="user_agent" type="pcre2">(?i)sqlmap|nikto|nmap|masscan</field>
+    <description>edgeproxy: request from a known scanner user agent.</description>
+  </rule>
+
+  <rule id="100302" level="6">
+    <if_sid>100300</if_sid>
+    <field name="request_path" type="pcre2">(?i)(/admin|wp-login|/\.env|/\.git)</field>
+    <description>edgeproxy: request to a sensitive path.</description>
+  </rule>
+
+  <rule id="100303" level="4">
+    <if_sid>100300</if_sid>
+    <field name="status_code">^404$</field>
+    <description>edgeproxy: HTTP 404 returned.</description>
+  </rule>
+
+  <rule id="100304" level="10" frequency="8" timeframe="60">
+    <if_matched_sid>100303</if_matched_sid>
+    <same_source_ip />
+    <description>edgeproxy: many 404 responses to one source (forced browsing / content discovery).</description>
+  </rule>
+
+</group>
