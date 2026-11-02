@@ -1,0 +1,10 @@
+<!-- Exercise 3: vaultsync JSON audit events wrapped in syslog -->
+<decoder name="vaultsync">
+  <program_name>^vaultsync</program_name>
+</decoder>
+
+<decoder name="vaultsync-json">
+  <parent>vaultsync</parent>
+  <prematch offset="after_parent">^{</prematch>
+  <plugin_decoder offset="after_parent">JSON_Decoder</plugin_decoder>
+</decoder>

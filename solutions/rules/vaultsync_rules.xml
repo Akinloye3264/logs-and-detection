@@ -1,0 +1,31 @@
+<!-- Exercise 3 rules: IDs 100400-100403 -->
+<group name="local,vaultsync,audit,">
+
+  <rule id="100400" level="0">
+    <decoded_as>vaultsync</decoded_as>
+    <description>vaultsync: audit event received.</description>
+  </rule>
+
+  <rule id="100401" level="8">
+    <if_sid>100400</if_sid>
+    <field name="event">^secret\.read$</field>
+    <field name="actor.type">^user$</field>
+    <field name="resource" type="pcre2">^prod/</field>
+    <field name="outcome">^success$</field>
+    <description>vaultsync: human user read a production secret.</description>
+  </rule>
+
+  <rule id="100402" level="10">
+    <if_sid>100400</if_sid>
+    <field name="event">^secret\.read$</field>
+    <field name="outcome">^denied$</field>
+    <description>vaultsync: secret read was denied.</description>
+  </rule>
+
+  <rule id="100403" level="12">
+    <if_sid>100400</if_sid>
+    <field name="event" type="pcre2">^(audit\.disable|policy\.delete)$</field>
+    <description>vaultsync: audit logging disabled or policy deleted.</description>
+  </rule>
+
+</group>
