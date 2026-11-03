@@ -2,6 +2,8 @@
 
 A hands-on lab on the Wazuh analysis engine. You take three different kinds of raw logs, write **custom decoders** to extract fields from them, then write **custom rules** that turn those fields into alerts.
 
+The lab is designed for a Linux Wazuh manager and is intentionally self-contained: all log samples use fictional services, users and documentation-reserved IP ranges.
+
 | # | Log type | Skill practised |
 |---|----------|-----------------|
 | 1 | Syslog authentication log (custom daemon) | Program-name decoders, PCRE2 field extraction, IP-based rules, frequency (brute-force) rules |
@@ -32,13 +34,14 @@ raw log -> [pre-decoding] -> [decoding] -> [rules] -> alert
 - A working **Wazuh manager (4.x)** you can reach as `root` or via `sudo`. A lab VM or the Wazuh OVA is fine. **Do not use production.**
 - Basic comfort with a terminal and a text editor (`nano`, `vim`).
 - Basic regular-expression knowledge. Decoders here use **PCRE2**.
+- `git` and Bash if you want to use the helper scripts.
 
 ---
 
 ## Repository layout
 
 ```
-wazuh-decoder-rule-lab/
+logs-and-detection/
 ├── README.md
 ├── exercises/
 │   ├── exercise-1-syslog-auth/       # directions + sample logs
@@ -61,12 +64,40 @@ wazuh-decoder-rule-lab/
 1. Clone the repo onto your Wazuh manager (or copy it there):
    ```bash
    git clone <your-repo-url>
-   cd wazuh-decoder-rule-lab
+   cd logs-and-detection
    ```
 2. Work through the exercises **in order**. Each has its own `README.md` with the scenario, tasks and expected outcome.
-3. Write your own decoders in `/var/ossec/etc/decoders/` and your rules in `/var/ossec/etc/rules/local_rules.xml` (or your own file in that directory).
+3. Write your own decoders in `/var/ossec/etc/decoders/` and rules in `/var/ossec/etc/rules/` (or in the manager's existing `local_rules.xml`).
 4. Validate with `wazuh-logtest` and save screenshots into `docs/screenshots/`.
 5. **Only then** compare against `solutions/`.
+
+### Install the checked-in solutions
+
+The deployment script copies every XML file under `solutions/decoders/` and
+`solutions/rules/` into the corresponding Wazuh directories, validates the
+configuration, and prints the restart command. Run it from the repository root
+as `root` or through `sudo`:
+
+```bash
+sudo ./scripts/deploy-solutions.sh
+sudo systemctl restart wazuh-manager
+```
+
+The script requires Bash and a `wazuh` group on the manager. It does not
+restart the manager automatically.
+
+### Replay all sample logs
+
+After the solutions are installed, replay the checked-in samples with:
+
+```bash
+sudo ./scripts/run-logtests.sh
+```
+
+The script starts one `wazuh-logtest` session per `*-logs.txt` file. This is
+important because the frequency rules need the failed-login or 404 events to
+remain in the same session. For screenshots, run `wazuh-logtest` interactively
+and paste the relevant file so you can capture each expected result.
 
 ### Handy commands
 
@@ -96,6 +127,8 @@ Paste a log at the `Type one log per line` prompt. Each phase of the output show
 - **Alert threshold.** Only rules at or above `log_alert_level` (default `3`) generate alerts. Level `0` rules are building blocks.
 - **Always run `wazuh-analysisd -t`** before restarting. A syntax error can stop the analysis engine.
 - **File ownership.** Custom files should be readable by the Wazuh group. The deploy script handles this.
+- **Frequency rules.** `100204` requires five matching failures within 120 seconds; `100304` requires eight matching 404 responses within 60 seconds. Both group events by source IP.
+- **Solution versus exercise files.** The files in each exercise directory are the authoring target and walkthrough context. The ready-to-deploy reference copies are under `solutions/`.
 
 ---
 
@@ -114,6 +147,7 @@ For each exercise:
 - [Exercise 1: Syslog authentication log](exercises/exercise-1-syslog-auth/README.md)
 - [Exercise 2: Web access log](exercises/exercise-2-web-access/README.md)
 - [Exercise 3: JSON audit log inside syslog](exercises/exercise-3-json-in-syslog/README.md)
+- [Solution notes](solutions/README.md)
 
 ---
 

@@ -51,8 +51,10 @@ Add these rules to `/var/ossec/etc/rules/local_rules.xml` (or a new file in `/va
 
 - Child rules use `<if_sid>100200</if_sid>`.
 - Match a decoded field with `<field name="login_result">^Accepted$</field>`.
-- The `<srcip>` option supports negation with `!`.
-- For the brute-force rule, look at `frequency`, `timeframe`, `<if_matched_sid>` and `<same_source_ip />`.
+- The `<srcip>` option supports negation. The supplied solution uses
+  `<srcip negate="yes">10.20.30.40</srcip>`.
+- For the brute-force rule, look at `frequency`, `timeframe`,
+  `<if_matched_sid>` and `<same_srcip />`.
 
 ## Task 1.3: Test with `wazuh-logtest`
 
@@ -60,7 +62,10 @@ Add these rules to `/var/ossec/etc/rules/local_rules.xml` (or a new file in `/va
 sudo /var/ossec/bin/wazuh-logtest
 ```
 
-Paste each line from `sample-logs.txt`. For the brute-force rule, stay in **one** logtest session and paste the lines from `bruteforce-logs.txt` one after another.
+Paste each line from `sample-logs.txt`. For the brute-force rule, stay in
+**one** logtest session and paste the lines from `bruteforce-logs.txt` one
+after another. The seventh line is included to make the threshold unambiguous;
+the rule should first appear after the fifth matching failure.
 
 ## Expected outcome
 
@@ -106,4 +111,4 @@ And Phase 3 for the first log:
 - [ ] Phase 1 shows `program_name: 'gatekeeper'`
 - [ ] Phase 2 shows all six fields populated
 - [ ] The trusted and untrusted logins trigger **different** rules
-- [ ] The brute-force rule fires only after repeated failures, not on the first one
+- [ ] The brute-force rule fires after the fifth matching failure, not on the first one

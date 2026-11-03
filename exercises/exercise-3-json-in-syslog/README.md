@@ -87,6 +87,10 @@ Phase 2 for the second log should look similar to:
 - your rules for `100400`-`100403`
 - screenshots of all four outcomes in `docs/screenshots/`
 
+For a ready-to-deploy reference, compare your files with
+[`solutions/decoders/vaultsync_decoder.xml`](../../solutions/decoders/vaultsync_decoder.xml)
+and [`solutions/rules/vaultsync_rules.xml`](../../solutions/rules/vaultsync_rules.xml).
+
 ## Self-check
 
 - [ ] Phase 2 lists nested fields such as `actor.type`

@@ -46,12 +46,14 @@ Create `/var/ossec/etc/decoders/edgeproxy_decoder.xml` that extracts:
 **Hints**
 
 - For case-insensitive alternation, use `<field name="user_agent" type="pcre2">(?i)sqlmap|nikto|nmap|masscan</field>`.
-- `100304` builds on `100303` using `<if_matched_sid>` and `<same_source_ip />`.
+- `100304` builds on `100303` using `<if_matched_sid>` and `<same_srcip />`.
 - Test each sample line so that only **one** detection rule applies to it.
 
 ## Task 2.3: Test with `wazuh-logtest`
 
-Paste each line from `sample-logs.txt`. For `100304`, stay in one logtest session and paste the lines from `forcedbrowse-logs.txt`.
+Paste each line from `sample-logs.txt`. For `100304`, stay in one logtest
+session and paste the lines from `forcedbrowse-logs.txt`. The rule should first
+appear after the eighth matching 404.
 
 ## Expected outcome
 
@@ -87,4 +89,4 @@ Phase 2 for the sqlmap line should look similar to:
 - [ ] The benign request produces **no alert**
 - [ ] The user-agent value is captured **without** the surrounding quotes
 - [ ] Each detection line fires exactly the rule you intended
-- [ ] The frequency rule needs repeated events and does not fire on a single `404`
+- [ ] The frequency rule fires after the eighth matching 404 and does not fire on a single `404`
