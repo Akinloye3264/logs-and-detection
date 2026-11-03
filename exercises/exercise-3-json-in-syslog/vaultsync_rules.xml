@@ -1,0 +1,30 @@
+<group name="vaultsync,audit,">
+
+  <rule id="100400" level="0">
+    <decoded_as>vaultsync</decoded_as>
+    <description>Vaultsync audit event.</description>
+  </rule>
+
+  <rule id="100401" level="8">
+    <if_sid>100400</if_sid>
+    <field name="event" type="pcre2">^secret\.read$</field>
+    <field name="actor.type">^user$</field>
+    <field name="resource">^prod/</field>
+    <field name="outcome">^success$</field>
+    <description>Vaultsync: human user successfully read a production secret.</description>
+  </rule>
+
+  <rule id="100402" level="10">
+    <if_sid>100400</if_sid>
+    <field name="event" type="pcre2">^secret\.read$</field>
+    <field name="outcome">^denied$</field>
+    <description>Vaultsync: access to a secret was denied.</description>
+  </rule>
+
+  <rule id="100403" level="12">
+    <if_sid>100400</if_sid>
+    <field name="event" type="pcre2">^(audit\.disable|policy\.delete)$</field>
+    <description>Vaultsync: auditing disabled or policy deleted.</description>
+  </rule>
+
+</group>

@@ -1,0 +1,33 @@
+<group name="edgeproxy,web,">
+
+  <rule id="100300" level="0">
+    <decoded_as>edgeproxy</decoded_as>
+    <description>Edgeproxy access event.</description>
+  </rule>
+
+  <rule id="100301" level="7">
+    <if_sid>100300</if_sid>
+    <field name="user_agent" type="pcre2">(?i)(sqlmap|nikto|nmap|masscan)</field>
+    <description>Edgeproxy: scanner user agent detected.</description>
+  </rule>
+
+  <rule id="100302" level="6">
+    <if_sid>100300</if_sid>
+    <field name="request_path" type="pcre2">(?i)(/admin|wp-login|/\.env|/\.git)</field>
+    <description>Edgeproxy: request to a sensitive location.</description>
+  </rule>
+
+  <rule id="100303" level="4">
+    <if_sid>100300</if_sid>
+    <field name="status_code">^404$</field>
+    <description>Edgeproxy: HTTP 404 response.</description>
+  </rule>
+
+  <rule id="100304" level="10" frequency="8" timeframe="60">
+    <if_sid>100303</if_sid>
+    <if_matched_sid>100303</if_matched_sid>
+    <same_srcip />
+    <description>Edgeproxy: repeated HTTP 404 responses to the same source IP.</description>
+  </rule>
+
+</group>

@@ -1,0 +1,9 @@
+<decoder name="edgeproxy">
+  <prematch type="pcre2">^\d{4}-\d{2}-\d{2}T\S+\s+edgeproxy\s+src=</prematch>
+</decoder>
+
+<decoder name="edgeproxy">
+  <parent>edgeproxy</parent>
+  <regex type="pcre2" offset="after_parent">^(\S+) method=(\S+) uri=(\S+) status=(\d{3}) bytes=(\d+) ua="([^"]*)"$</regex>
+  <order>srcip,http_method,request_path,status_code,bytes_sent,user_agent</order>
+</decoder>

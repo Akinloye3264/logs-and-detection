@@ -1,0 +1,9 @@
+<decoder name="vaultsync">
+  <program_name>^vaultsync$</program_name>
+</decoder>
+
+<decoder name="vaultsync">
+  <parent>vaultsync</parent>
+  <prematch type="pcre2" offset="after_parent">^\{</prematch>
+  <plugin_decoder offset="after_parent">JSON_Decoder</plugin_decoder>
+</decoder>

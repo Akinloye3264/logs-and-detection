@@ -1,0 +1,9 @@
+<decoder name="gatekeeper">
+  <program_name>^gatekeeper$</program_name>
+</decoder>
+
+<decoder name="gatekeeper">
+  <parent>gatekeeper</parent>
+  <regex type="pcre2">^(Accepted|Failed) (\S+) for user (\S+) from (\S+) port (\d+) method=(\S+)$</regex>
+  <order>login_result,auth_type,dstuser,srcip,srcport,auth_method</order>
+</decoder>
